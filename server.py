@@ -65,6 +65,7 @@ def index():
 
         # Save query image
         img = Image.open(file.stream)  # PIL image
+        #img = img.thumbnail((600, 600))
         uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
         #img.save(uploaded_img_path)
 
