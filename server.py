@@ -74,11 +74,13 @@ def index():
         dists = np.linalg.norm(features-query, axis=1)  # L2 distances to features
         ids = np.argsort(dists)[:5]  # Top 30 results
         scores = [(dists[id], img_paths[id]) for id in ids]
+        cardNumberList = [(cardNumber[id]) for id in ids]
         for id in ids:
             print(cardNumber[id])
         return render_template('index.html',
                                query_path=uploaded_img_path,
-                               scores=scores)
+                               scores=scores,
+                               cardNumberList=cardNumberList)
     else:
         return render_template('index.html')
  
