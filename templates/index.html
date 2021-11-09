@@ -292,7 +292,7 @@
 			window.scrollTo(0, 1);
 		}, 100);
 		var cl=document.getElementById("xxx").value
-		console.log(cl.substring(0,cl.indexOf("_"))+"/"+cl.substring(cl.indexOf("_",cl.indexOf("_"))+1,cl.indexOf("_",cl.indexOf("_")+1))+"-"+cl.substring(cl.indexOf("_",cl.indexOf("_")+1)+1,cl.length))		
+		cl.value=document.getElementById("xxx").value=cl.substring(0,cl.indexOf("_"))+"/"+cl.substring(cl.indexOf("_",cl.indexOf("_"))+1,cl.indexOf("_",cl.indexOf("_")+1))+"-"+cl.substring(cl.indexOf("_",cl.indexOf("_")+1)+1,cl.length)	
 	}
 	
 function myFunction() {
