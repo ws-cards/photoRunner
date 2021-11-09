@@ -193,7 +193,7 @@
 									<img src="{{ score[1] }}" height="200px">
 									<figcaption>{{ score[0] }}</figcaption>
 								</figure>
-				  				<input id ="xxx" value="{{ cardNumberList[0].upper()}}">
+				  				<input id ="xxx" value="{{ cardNumberList[0].upper()}}" onclick="myFunction()" readonly>
 								{% endfor %}
 			  </div>
 
@@ -291,6 +291,8 @@
 		setTimeout(function(){
 			window.scrollTo(0, 1);
 		}, 100);
+		var cl=document.getElementById("xxx").value
+		console.log(cl.substring(0,cl.indexOf("_"))+"/"+cl.substring(cl.indexOf("_",cl.indexOf("_"))+1,cl.indexOf("_",cl.indexOf("_")+1))+"-"+cl.substring(cl.indexOf("_",cl.indexOf("_")+1)+1,cl.length))		
 	}
 	
 function myFunction() {
