@@ -188,12 +188,12 @@
 								<img src="{{ query_path }}" id="preimg" width="300px">
 								{% endif %}
 								<h2>Results:</h2>
-								{% for index,score in enumerate(scores) %}
+								{% for score in scores %}
 								<figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
 									<img src="{{ score[1] }}" height="200px">
 									<figcaption>{{ score[0] }}</figcaption>
 								</figure>
-				  				<input id ="xxx" value="{{ cardNumberList[index].upper()}}">
+				  				<input id ="xxx" value="{{ cardNumberList[0].upper()}}">
 								{% endfor %}
 			  </div>
 
