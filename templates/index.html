@@ -184,9 +184,7 @@
             <div class="card  card-outline">
 			  <div class="card-body">
 					            <h2>Query:</h2>
-								{% if query_path %}
-								<img src="{{ query_path }}" id="preimg" width="300px">
-								{% endif %}
+								<div id="newImg"></div>
 								<h2>Results:</h2>
 								{% for score in scores %}
 								<figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
@@ -287,6 +285,63 @@
 <script src="https://ws-cards.cloud/js/mobile-sidebar-control.js"></script>
 <script src="https://ws-cards.cloud/js/wscards.scan.js"></script>
 <script>
+(function($) {
+var compressRatio = 0.8, // 圖片壓縮比例
+imgNewWidth = 400, // 圖片新寬度
+img = new Image(),
+canvas = document.createElement("canvas"),
+context = canvas.getContext("2d"),
+file, fileReader, dataUrl;
+
+// 上傳檔案
+$("#imgInp").change(function() {
+file = this.files[0];
+// 圖片才處理
+if (file && file.type.indexOf("image") == 0) {
+fileReader = new FileReader();
+fileReader.onload = getFileInfo;
+fileReader.readAsDataURL(file);
+}
+});
+
+function getFileInfo(evt) {
+dataUrl = evt.target.result,
+
+// 取得圖片
+img.src = dataUrl;
+}
+
+// 圖片載入後
+img.onload = function() {
+var width = this.width, // 圖片原始寬度
+height = this.height, // 圖片原始高度
+imgNewHeight = imgNewWidth * height / width, // 圖片新高度
+html = "",
+newImg;
+
+// 使用 canvas 調整圖片寬高
+canvas.width = imgNewWidth;
+canvas.height = imgNewHeight;
+context.clearRect(0, 0, imgNewWidth, imgNewHeight);
+
+// 調整圖片尺寸
+context.drawImage(img, 0, 0, imgNewWidth, imgNewHeight);
+
+// 顯示新圖片
+newImg = canvas.toDataURL("image/jpeg", compressRatio);
+html = "";
+html += "<img src='" + newImg + "'/>";
+html += "<p>這裡是新圖片尺寸 " + imgNewWidth + "x" + imgNewHeight + "</p>";
+html += "<p>檔案大小約 " + Math.round(0.75 * newImg.length / 1000) + "k</p>"; // 出處 https://stackoverflow.com/questions/18557497/how-to-get-html5-canvas-todataurl-file-size-in-javascript
+$("#newImg").html(html);
+
+// canvas 轉換為 blob 格式、上傳
+canvas.toBlob(function(blob) {
+// 輸入上傳程式碼
+}, "image/jpeg", compressRatio);
+};
+})(jQuery);
+	
 	window.onload=function(){
 		setTimeout(function(){
 			window.scrollTo(0, 1);
