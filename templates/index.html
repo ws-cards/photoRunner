@@ -167,6 +167,7 @@
 					<form action="" name="calForm" method="post" enctype="multipart/form-data">
 			  			<div class="input-group">
 							<input type="file" name="query_img" id="imgInp"><br>
+							<img id="imgimg" name="imgimg" hidden>
 							<span class="input-group-append">
 							<button id ="buttonSearch" type="button" class="btn btn-block btn-outline-info" onclick="sendImg()">!</button>
 							<input type="submit">
@@ -334,7 +335,7 @@ html += "<img src='" + newImg + "'/>";
 html += "<p>這裡是新圖片尺寸 " + imgNewWidth + "x" + imgNewHeight + "</p>";
 html += "<p>檔案大小約 " + Math.round(0.75 * newImg.length / 1000) + "k</p>"; // 出處 https://stackoverflow.com/questions/18557497/how-to-get-html5-canvas-todataurl-file-size-in-javascript
 $("#newImg").html(html);
-
+document.getElementById("imgimg").src=newImg;
 // canvas 轉換為 blob 格式、上傳
 canvas.toBlob(function(blob) {
 // 輸入上傳程式碼
