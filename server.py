@@ -5,6 +5,9 @@ from datetime import datetime
 from flask import Flask, request, render_template
 from pathlib import Path
 from flask import jsonify
+from io import BytesIO
+import base64
+import re
 
 app = Flask(__name__)
 
@@ -62,7 +65,8 @@ features = np.array(features)
 def index():
     if request.method == 'POST':
         file = request.files['query_img']
-
+        b64Full = request.values.get('imgimg')
+        b64 = re.sub('^data:image/.+;base64,', '', b64Full)
         # Save query image
         img = Image.open(file.stream)  # PIL image
         #img = img.thumbnail((600, 600))
