@@ -352,7 +352,8 @@ canvas.toBlob(function(blob) {
 		cl.value=document.getElementById("xxx").value=cl.substring(0,cl.indexOf("_"))+"/"+cl.substring(cl.indexOf("_",cl.indexOf("_"))+1,cl.indexOf("_",cl.indexOf("_")+1))+"-"+cl.substring(cl.indexOf("_",cl.indexOf("_")+1)+1,cl.length)	
 	}
 	
-function myFunction(cardNo) {
+function myFunction(cl) {
+  cardNo = cl.substring(0,cl.indexOf("_"))+"/"+cl.substring(cl.indexOf("_",cl.indexOf("_"))+1,cl.indexOf("_",cl.indexOf("_")+1))+"-"+cl.substring(cl.indexOf("_",cl.indexOf("_")+1)+1,cl.length)	
   /* Get the text field */
   var copyText = document.getElementById("xxx");
 
