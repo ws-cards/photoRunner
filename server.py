@@ -66,7 +66,8 @@ def index():
     if request.method == 'POST':
         file = request.files['query_img']
         b64Full = request.values.get('imgimg')
-        print(b64Full)
+        b64 = re.sub('data:image\/jpeg;base64,','',b64Full)
+        print(b64)
         # Save query image
         img = Image.open(file.stream)  # PIL image
         #img = img.thumbnail((600, 600))
