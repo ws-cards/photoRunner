@@ -82,6 +82,7 @@ def index():
         scores = [(dists[id], img_paths[id]) for id in ids]
         cardNumberList = [(cardNumber[id]) for id in ids]
         for id in ids:
+            print("id:"+id)
             print(cardNumber[id])
         return render_template('index.html',
                                query_path=uploaded_img_path,
