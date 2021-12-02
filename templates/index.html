@@ -192,7 +192,7 @@
 									<img src="{{ score[1] }}" height="200px">
 									<figcaption>{{ score[0] }}</figcaption>
 								</figure>
-				  				<input id ="xxx" value="{{ cardNumberList[loop.index0].upper()}}" onclick="myFunction()" readonly>
+				  				<input id ="xxx" value="{{ cardNumberList[loop.index0].upper()}}" onclick="myFunction('{{ cardNumberList[loop.index0].upper()}}')" readonly>
 								{% endfor %}
 			  </div>
 
@@ -352,7 +352,7 @@ canvas.toBlob(function(blob) {
 		cl.value=document.getElementById("xxx").value=cl.substring(0,cl.indexOf("_"))+"/"+cl.substring(cl.indexOf("_",cl.indexOf("_"))+1,cl.indexOf("_",cl.indexOf("_")+1))+"-"+cl.substring(cl.indexOf("_",cl.indexOf("_")+1)+1,cl.length)	
 	}
 	
-function myFunction() {
+function myFunction(cardNo) {
   /* Get the text field */
   var copyText = document.getElementById("xxx");
 
@@ -361,12 +361,12 @@ function myFunction() {
   copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
   /* Copy the text inside the text field */
-  navigator.clipboard.writeText(copyText.value);
+  navigator.clipboard.writeText(cardNo);
   
   /* Alert the copied text */
   Swal.fire({
     icon: 'success',
-    title: "Copied the text: " + copyText.value,
+    title: "Copied the text: " + cardNo,
     showConfirmButton: false,
     timer: 1500
   })  
