@@ -68,8 +68,9 @@ def index():
         b64Full = request.values.get('imgimg')
         b64 = re.sub('data:image\/jpeg;base64,','',b64Full)
         print(b64)
+        img = Image.open(BytesIO(base64.b64decode(b64)))
         # Save query image
-        img = Image.open(file.stream)  # PIL image
+        #img = Image.open(file.stream)  # PIL image <-
         #img = img.thumbnail((600, 600))
         uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
         #img.save(uploaded_img_path)
