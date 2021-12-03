@@ -8,6 +8,8 @@ from flask import jsonify
 from io import BytesIO
 import base64
 import re
+from urllib.request import urlopen
+import json
 
 app = Flask(__name__)
 
@@ -75,6 +77,11 @@ def index():
         uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
         #img.save(uploaded_img_path)
 
+        url = "https://storage.googleapis.com/divine-vehicle-292507.appspot.com/json/cardDataAllDataAtLasted.json"  
+        response = urlopen(url)
+        data_json = json.loads(response.read())
+        print(data_json)
+        
         # Run search
         query = fe.extract(img)
         dists = np.linalg.norm(features-query, axis=1)  # L2 distances to features
