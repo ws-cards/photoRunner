@@ -94,8 +94,9 @@ def index():
             str = cardNumber[id]
             str1 = str.find("_")
             str2 = str.rfind("_")
-            cardNumberList.append(str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)])
-            print(data_json[str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)]]["cardPrice"])
+            cardNumberLower = str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)]
+            cardNumberList.append(cardNumberLower)
+            print(data_json[cardNumberLower.upper()]]["cardPrice"])
         return render_template('index.html',
                                query_path=uploaded_img_path,
                                scores=scores,
