@@ -69,7 +69,7 @@ def index():
         file = request.files['query_img']
         b64Full = request.values.get('imgimg')
         b64 = re.sub('data:image\/jpeg;base64,','',b64Full)
-        print(b64)
+        #print(b64)
         img = Image.open(BytesIO(base64.b64decode(b64)))
         # Save query image
         #img = Image.open(file.stream)  # PIL image <-
@@ -80,17 +80,20 @@ def index():
         url = "https://storage.googleapis.com/divine-vehicle-292507.appspot.com/json/cardDataAllDataAtLasted.json"  
         response = urlopen(url)
         data_json = json.loads(response.read())
-        print(data_json)
+        #print(data_json)
         
         # Run search
         query = fe.extract(img)
         dists = np.linalg.norm(features-query, axis=1)  # L2 distances to features
         ids = np.argsort(dists)[:5]  # Top 30 results
         scores = [(dists[id], img_paths[id]) for id in ids]
-        cardNumberList = [(cardNumber[id]) for id in ids]
+        #cardNumberList = [(cardNumber[id]) for id in ids]
+        cardNumberList = []
         for id in ids:
-            print(id)
-            print(cardNumber[id])
+            str = cardNumber[id]
+            str1 = str.find("_")
+            str2 = str.rfind("_")
+            cardNumberList.append(str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)])
         return render_template('index.html',
                                query_path=uploaded_img_path,
                                scores=scores,
