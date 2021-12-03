@@ -89,11 +89,13 @@ def index():
         scores = [(dists[id], img_paths[id]) for id in ids]
         #cardNumberList = [(cardNumber[id]) for id in ids]
         cardNumberList = []
+        cardPrice = []
         for id in ids:
             str = cardNumber[id]
             str1 = str.find("_")
             str2 = str.rfind("_")
             cardNumberList.append(str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)])
+            print(data_json[str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)]]["cardPrice"])
         return render_template('index.html',
                                query_path=uploaded_img_path,
                                scores=scores,
