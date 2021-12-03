@@ -96,10 +96,11 @@ def index():
             str2 = str.rfind("_")
             cardNumberLower = str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)]
             cardNumberList.append(cardNumberLower)
-            #print(data_json[cardNumberLower.upper()]["cardPrice"]) 測試中
+            cardPrice.append(data_json[cardNumberLower.upper()]["cardPrice"])
         return render_template('index.html',
                                query_path=uploaded_img_path,
                                scores=scores,
+                               cardPrice=cardPrice,
                                cardNumberList=cardNumberList)
     else:
         return render_template('index.html')
