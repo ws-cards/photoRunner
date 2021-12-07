@@ -189,7 +189,7 @@
 								<h2>Results:</h2>
 								{% for score in scores %}
 								<figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
-									<img src="{{ score[1] }}" height="200px" onclick="alertNew({{ cardPrice[loop.index0] }})">
+									<img src="{{ score[1] }}" height="200px" onclick="alertNew({{ cardPrice[loop.index0] }},{{ cardNumberList[loop.index0].upper()}})">
 									<figcaption>{{ score[0] }}</figcaption>
 								</figure>
 				  				<input id ="xxx" value="{{ cardNumberList[loop.index0].upper()}}" onclick="myFunction('{{ cardNumberList[loop.index0].upper()}}')" readonly>
@@ -373,12 +373,12 @@ function myFunction(cl) {
   })  
 }
 
-function alertNew(price){
+function alertNew(price, cardNo){
   /* Alert the copied text */
   Swal.fire({
     icon: 'info',
-    title: "本日卡價 : " + cardNo,
-	text:price,
+    title: cardNo + " ♦ 本日卡價" ,
+    text:"¥ "+price,
     showConfirmButton: false
   })  
 }	
