@@ -374,12 +374,13 @@ function myFunction(cl) {
 }
 
 function alertNew(price, cardNo){
+   var strAry = str.split(',');
   /* Alert the copied text */
   Swal.fire({
     icon: 'info',
     title: cardNo + "  本日卡價" ,
-    text:"¥ "+price,
-    showConfirmButton: false
+    showConfirmButton: false,
+    html:'<div class="" style="width:800px;margin-left:35px; overflow:hidden;position:relative;"><iframe id="yuyutei" width="552" height="640" frameborder="0" style="position:relative; top:-185px; float:left; left:-278px;" scrolling="no" src="https://yuyu-tei.jp/game_ws/carddetail/cardpreview.php?VER='+strAry[0]+'&CID='+strAry[1]+'&MODE=sell&kizu=1" name="yuyutei"></iframe></div>	'
   })  
 }	
 </script>
