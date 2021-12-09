@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 from feature_extractor import FeatureExtractor
 from datetime import datetime
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template ,jsonify
 from pathlib import Path
 from flask import jsonify
 from io import BytesIO
@@ -112,14 +112,49 @@ def index():
         return render_template('index.html')
  
 
-@app.route('/rese', methods=['GET', 'POST'])
-def rese():
+@app.route('/api', methods=['GET', 'POST'])
+def api():
+    if request.method == 'POST':
+        file = request.files['query_img']
+        b64Full = request.values.get('imgimg')
+        b64 = re.sub('data:image\/jpeg;base64,','',b64Full)
+        #print(b64)
+        img = Image.open(BytesIO(base64.b64decode(b64)))
+        # Save query image
+        #img = Image.open(file.stream)  # PIL image <-
+        #img = img.thumbnail((600, 600))
+        uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
+        #img.save(uploaded_img_path)
 
-    name = request.args.get('name')
-    fruit = request.args.get('fruit')
-    response = jsonify({'name': name},{'fruit':fruit}) 
-    #return render_template('rese.html',**locals()
-    return response
+        #url = "https://storage.googleapis.com/divine-vehicle-292507.appspot.com/json/cardDataAllDataAtLasted.json"  
+        url = "https://storage.googleapis.com/divine-vehicle-292507.appspot.com/resource/cardMappingList.json"
+        response = urlopen(url)
+        data_json = json.loads(response.read())
+        #print(data_json)
+        
+        # Run search
+        query = fe.extract(img)
+        dists = np.linalg.norm(features-query, axis=1)  # L2 distances to features
+        ids = np.argsort(dists)[:5]  # Top 30 results
+        scores = [(dists[id], img_paths[id]) for id in ids]
+        #cardNumberList = [(cardNumber[id]) for id in ids]
+        cardNumberList = []
+        cardPrice = []
+        for id in ids:
+            str = cardNumber[id]
+            str1 = str.find("_")
+            str2 = str.rfind("_")
+            cardNumberLower = str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)]
+            cardNumberList.append(cardNumberLower)
+            try:
+                #cardNoPrice = data_json[cardNumberLower.upper()]["cardPrice"]
+                cardNoPrice = data_json[cardNumberLower.upper()]["VER"] + "," + data_json[cardNumberLower.upper()]["CID"] 
+            except:
+                cardNoPrice = [0]
+            cardPrice.append(cardNoPrice)
+        return jsonify({'scores': scores,'cardPrice':cardPrice,'cardNumberList':cardNumberList})    
+    else:
+        return render_template('index.html')
 
 
 if __name__=="__main__":
