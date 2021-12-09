@@ -77,7 +77,8 @@ def index():
         uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
         #img.save(uploaded_img_path)
 
-        url = "https://storage.googleapis.com/divine-vehicle-292507.appspot.com/json/cardDataAllDataAtLasted.json"  
+        #url = "https://storage.googleapis.com/divine-vehicle-292507.appspot.com/json/cardDataAllDataAtLasted.json"  
+        url = "https://storage.googleapis.com/divine-vehicle-292507.appspot.com/resource/cardMappingList.json"
         response = urlopen(url)
         data_json = json.loads(response.read())
         #print(data_json)
@@ -97,7 +98,8 @@ def index():
             cardNumberLower = str[:str1]+"/"+str[str1+1:str2]+"-"+str[str2+1:len(str)]
             cardNumberList.append(cardNumberLower)
             try:
-                cardNoPrice = data_json[cardNumberLower.upper()]["cardPrice"]
+                #cardNoPrice = data_json[cardNumberLower.upper()]["cardPrice"]
+                cardNoPrice = data_json[cardNumberLower.upper()]["VER"] + "," + data_json[cardNumberLower.upper()]["CID"] 
             except:
                 cardNoPrice = [0]
             cardPrice.append(cardNoPrice)
