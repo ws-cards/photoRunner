@@ -316,17 +316,17 @@ img.src = dataUrl;
 img.onload = function() {
 var width = this.width, // 圖片原始寬度
 height = this.height, // 圖片原始高度
-imgNewHeight = imgNewWidth * height / width, // 圖片新高度
+imgNewHeight = imgNewWidth * 0.7 * height / width, // 圖片新高度
 html = "",
 newImg;
 
 // 使用 canvas 調整圖片寬高
-canvas.width = imgNewWidth;
+canvas.width = imgNewWidth * 0.7;
 canvas.height = imgNewHeight;
-context.clearRect(0, 0, imgNewWidth, imgNewHeight);
+context.clearRect(0, 0, imgNewWidth * 0.7, imgNewHeight);
 
 // 調整圖片尺寸
-context.drawImage(img, 0, 0, imgNewWidth, imgNewHeight);
+context.drawImage(img, 0, 0, imgNewWidth * 0.7, imgNewHeight);
 
 // 顯示新圖片
 newImg = canvas.toDataURL("image/jpeg", compressRatio);
